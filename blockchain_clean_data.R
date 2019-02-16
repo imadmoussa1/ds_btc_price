@@ -46,4 +46,4 @@ transaction_fees <- read.csv("https://api.blockchain.info/charts/transaction-fee
 data = clean_data(market_price, avg_block_size, estimated_transaction_volume_usd, estimated_transaction_volume, output_volume, n_transactions, miners_revenuem, difficulty, market_cap, trade_volume, cost_per_transaction, transaction_fees)
 
 write.csv(head(data, 1826), file = "blockchain_data_test.csv")
-write.csv(head(data, -1826), file = "blockchain_data_test.csv")
+write.csv(tail(data, -1826), file = "blockchain_data_test.csv")
