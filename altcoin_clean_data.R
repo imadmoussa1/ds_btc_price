@@ -111,6 +111,7 @@ clean_data <- function(btc_data, bch_data, eos_data, eth_data, ltc_data, usdt_da
   
   return(new_data)
 }
+
 btc_data <- read.csv("btc_data_csv/testing_data_predict/Bitcoin Historical Data - Investing.com.csv") # Jul 18, 2010
 bch_data <- read.csv("btc_data_csv/testing_data_predict/Bitcoin Cash Historical Data - Investing.com.csv") # Aug 03, 2017
 eos_data <- read.csv("btc_data_csv/testing_data_predict/EOS Historical Data - Investing.com.csv") # Jul 02, 2017
@@ -144,3 +145,14 @@ kraken_data <- read.csv("btc_data_csv/exchange/Kraken_BTCUSD_d.csv")[c(-2)]
 
 data = clean_data(btc_data, bch_data, eos_data, eth_data, ltc_data, usdt_data, xrp_data, btc_sv_data, bitfinex_data, bitstamp_data, coinbase_data, kraken_data) 
 write.csv(data, file = "imp_coin.csv")
+
+btc_data <- read.csv("btc_data_csv/bitfinex_data/BTC_USD Bitfinex Historical Data.csv") # Jul 18, 2010
+bch_data <- read.csv("btc_data_csv/bitfinex_data/BCH_USD Bitfinex Historical Data.csv") # Aug 03, 2017
+eos_data <- read.csv("btc_data_csv/bitfinex_data/EOS_USD Bitfinex Historical Data.csv") # Jul 02, 2017
+eth_data <- read.csv("btc_data_csv/bitfinex_data/ETH_USD Bitfinex Historical Data.csv") # Mar 10, 2016
+ltc_data <- read.csv("btc_data_csv/bitfinex_data/LTC_USD Bitfinex Historical Data.csv") # Aug 24, 2016
+xrp_data <- read.csv("btc_data_csv/bitfinex_data/XRP_USD Bitfinex Historical Data.csv") # Jan 22, 2015
+btc_sv_data <- read.csv("btc_data_csv/bitfinex_data/BCHSV_USD Bitfinex Historical Data.csv") # Nov 19, 2018
+
+data = clean_data(btc_data, bch_data, eos_data, eth_data, ltc_data, NULL, xrp_data, btc_sv_data, NULL, NULL, NULL, NULL)
+write.csv(data, file = "bitfinex_coin.csv")
