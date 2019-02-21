@@ -92,3 +92,34 @@ b  = predict(lasso_model(head(x,-1), tail(y,-1)), newx = head(test_last_20, -1))
 plot.ts(tail(bitfinex_data_test[1], -1)$btc_price, sub = 'bitfinex', ylim=c(2300,3700))
 lines(tail(a, -1),col="green")
 lines(b,col="blue")
+
+
+
+
+set.seed(101)
+training.samples <- createDataPartition(coin_data$btc_change, p = 0.7, list = FALSE)
+train.data  <- coin_data[training.samples, ]
+test.data <- coin_data[-training.samples, ]
+# day by day model on 70% data trained
+x <- model.matrix(btc_change~., train.data)[,-1]
+y <- as.double(train.data$btc_change)
+x.test <- model.matrix(btc_change ~., test.data)[,-1]
+
+test_last_20 <- model.matrix(btc_change ~., coin_data_test)[,-1]
+
+a  = predict(lasso_model(head(x,-1), tail(y,-1)), newx = head(test_last_20, -1))
+plot.ts(tail(coin_data_test[3], -1)$btc_change, axes=FALSE)
+axis(1)
+axis(2)
+par(new=TRUE)
+plot.ts(a, col='green', axes=FALSE)
+axis(4)
+
+# predict on the 30% of the data delay one day
+a = predict(lasso_model(head(x,-1), tail(y,-1)),newx = head(x.test, -1))
+plot.ts(test.data$btc_change, axes=FALSE)
+axis(1)
+axis(2)
+par(new=TRUE)
+plot.ts(a, col='green', axes=FALSE)
+axis(4)
