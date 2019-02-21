@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+
+  tenserflow:
+    # this is used for development only, use the tagged registry image instead
+    build: .
+    environment:
+      # flush python stdout
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=1
+    ports:
+      - 8888:8888
+
+volumes:
+  data-volume:
