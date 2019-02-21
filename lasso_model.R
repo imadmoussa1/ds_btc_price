@@ -86,3 +86,9 @@ predict_model(lasso_model(x, y) ,x.test, test.data, 'Bitfinex, day by day, valid
 predict_model(lasso_model(x, y), test_last_20, bitfinex_data_test[1], 'Bitfinex, day by day, testing data')
 predict_model(lasso_model(head(x,-1), tail(y,-1)),head(x.test, -1), tail(test.data, -1), 'Bitfinex, delay one, validation on 30%')
 predict_model(lasso_model(head(x,-1), tail(y,-1)),head(test_last_20, -1), tail(bitfinex_data_test[1], -1), 'Bitfinex, delay one, testing data')
+
+a  = predict(lasso_model(x, y), newx = test_last_20)
+b  = predict(lasso_model(head(x,-1), tail(y,-1)), newx = head(test_last_20, -1))
+plot.ts(tail(bitfinex_data_test[1], -1)$btc_price, sub = 'bitfinex', ylim=c(2300,3700))
+lines(tail(a, -1),col="green")
+lines(b,col="blue")
