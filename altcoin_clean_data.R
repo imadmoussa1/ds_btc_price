@@ -20,7 +20,6 @@ clean_data <- function(btc_data, bch_data, eos_data, eth_data, ltc_data, usdt_da
   bitstamp_data = bitstamp_data[-c(2, 3, 4, 5)]
   coinbase_data = coinbase_data[-c(2, 3, 4, 5)]
   kraken_data = kraken_data[-c(2, 3, 4, 5)]
-  # btc_data$btc_price = as.double(btc_data$btc_price)
   
   temp_data <- merge(btc_data, bch_data, by = 'Date', all = TRUE)
   temp_data <- merge(temp_data, eos_data, by = 'Date', all = TRUE)
@@ -38,77 +37,23 @@ clean_data <- function(btc_data, bch_data, eos_data, eth_data, ltc_data, usdt_da
   
   temp_data = temp_data[order(as.Date(temp_data$Date)),]
   new_data = temp_data
-  
-  new_data$btc_price = sub(",", "", new_data$btc_price, fixed = TRUE)
+
   new_data$btc_vol = sub("-", "0", new_data$btc_vol, fixed = TRUE)
-  new_data$btc_vol = sub("K", "e3", new_data$btc_vol, fixed = TRUE)
-  new_data$btc_vol = sub("M", "e6", new_data$btc_vol, fixed = TRUE)
-  new_data$btc_change = sub("%", "", new_data$btc_change, fixed = TRUE)
-  new_data$btc_vol = as.numeric(new_data$btc_vol)
-  new_data$btc_change = as.numeric(new_data$btc_change)
-  new_data$btc_price= as.double(new_data$btc_price)
-  
-  new_data$bch_price = sub(",", "", new_data$bch_price, fixed = TRUE)
   new_data$bch_vol = sub("-", "0", new_data$bch_vol, fixed = TRUE)
-  new_data$bch_vol = sub("K", "e3", new_data$bch_vol, fixed = TRUE)
-  new_data$bch_vol = sub("M", "e6", new_data$bch_vol, fixed = TRUE)
-  new_data$bch_change = sub("%", "", new_data$bch_change, fixed = TRUE)
-  new_data$bch_vol = as.numeric(new_data$bch_vol)
-  new_data$bch_change = as.numeric(new_data$bch_change)
-  new_data$bch_high = as.numeric(new_data$bch_high)
-  new_data$bch_low = as.numeric(new_data$bch_low)
-  new_data$bch_open = as.numeric(new_data$bch_open)
-  new_data$bch_price= as.double(new_data$bch_price)
-  
   new_data$btcsv_vol = sub("-", "0", new_data$btcsv_vol, fixed = TRUE)
-  new_data$btcsv_vol = sub("K", "e3", new_data$btcsv_vol, fixed = TRUE)
-  new_data$btcsv_vol = sub("M", "e6", new_data$btcsv_vol, fixed = TRUE)
-  new_data$btcsv_change = sub("%", "", new_data$btcsv_change, fixed = TRUE)
-  new_data$btcsv_vol = as.numeric(new_data$btcsv_vol)
-  new_data$btcsv_change = as.numeric(new_data$btcsv_change)
-  
   new_data$eos_vol = sub("-", "0", new_data$eos_vol, fixed = TRUE)
-  new_data$eos_vol = sub("K", "e3", new_data$eos_vol, fixed = TRUE)
-  new_data$eos_vol = sub("M", "e6", new_data$eos_vol, fixed = TRUE)
-  new_data$eos_change = sub("%", "", new_data$eos_change, fixed = TRUE)
-  new_data$eos_vol = as.numeric(new_data$eos_vol)
-  new_data$eos_change = as.numeric(new_data$eos_change)
-  new_data$eth_price= as.double(new_data$eth_price)
-  
   new_data$eth_vol = sub("-", "0", new_data$eth_vol, fixed = TRUE)
-  new_data$eth_vol = sub("K", "e3", new_data$eth_vol, fixed = TRUE)
-  new_data$eth_vol = sub("M", "e6", new_data$eth_vol, fixed = TRUE)
-  new_data$eth_change = sub("%", "", new_data$eth_change, fixed = TRUE)
-  new_data$eth_vol = as.numeric(new_data$eth_vol)
-  new_data$eth_change = as.numeric(new_data$eth_change)
-  new_data$eth_vol = as.numeric(new_data$eth_vol)
-  new_data$eth_high = as.numeric(new_data$eth_high)
-  new_data$eth_low = as.numeric(new_data$eth_low)
-  new_data$eth_open = as.numeric(new_data$eth_open)
-  
   new_data$ltc_vol = sub("-", "0", new_data$ltc_vol, fixed = TRUE)
-  new_data$ltc_vol = sub("K", "e3", new_data$ltc_vol, fixed = TRUE)
-  new_data$ltc_vol = sub("M", "e6", new_data$ltc_vol, fixed = TRUE)
-  new_data$ltc_change = sub("%", "", new_data$ltc_change, fixed = TRUE)
-  new_data$ltc_vol = as.numeric(new_data$ltc_vol)
-  new_data$ltc_change = as.numeric(new_data$ltc_change)
-  
   new_data$usdt_vol = sub("-", "0", new_data$usdt_vol, fixed = TRUE)
-  new_data$usdt_vol = sub("K", "e3", new_data$usdt_vol, fixed = TRUE)
-  new_data$usdt_vol = sub("M", "e6", new_data$usdt_vol, fixed = TRUE)
-  new_data$usdt_change = sub("%", "", new_data$usdt_change, fixed = TRUE)
-  new_data$usdt_vol = as.numeric(new_data$usdt_vol)
-  new_data$usdt_change = as.numeric(new_data$usdt_change)
-  
   new_data$xrp_vol = sub("-", "0", new_data$xrp_vol, fixed = TRUE)
-  new_data$xrp_vol = sub("K", "e3", new_data$xrp_vol, fixed = TRUE)
-  new_data$xrp_vol = sub("M", "e6", new_data$xrp_vol, fixed = TRUE)
-  new_data$xrp_change = sub("%", "", new_data$xrp_change, fixed = TRUE)
-  new_data$xrp_vol = as.numeric(new_data$xrp_vol)
-  new_data$xrp_change = as.numeric(new_data$xrp_change)
+  new_data[,-1] = as.data.frame(lapply(new_data[,-1], function(y) sub(",", "", y, fixed = TRUE)))
+  new_data[,-1] = as.data.frame(lapply(new_data[,-1], function(y) sub("%", "", y, fixed = TRUE)))
+  new_data[,-1] = as.data.frame(lapply(new_data[,-1], function(y) sub("K", "e3", y, fixed = TRUE)))
+  new_data[,-1] = as.data.frame(lapply(new_data[,-1], function(y) sub("M", "e6", y, fixed = TRUE)))
+  new_data[,-1] = as.data.frame(lapply(new_data[,-1], function(y) sub("B", "e9", y, fixed = TRUE)))
+  new_data[,-1] = as.data.frame(lapply(new_data[,-1], function(y) as.numeric(levels(y))[y]))
   
   new_data[is.na(new_data)] <- 0
-  
   return(new_data)
 }
 
