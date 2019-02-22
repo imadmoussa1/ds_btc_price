@@ -21,6 +21,6 @@ RUN conda install statsmodels
 RUN conda install -c r r-essentials 
 RUN conda install r-base
 
-COPY . /opt/notebooks
+# COPY . /opt/notebooks
 
 CMD ["/opt/conda/bin/jupyter", "notebook", "--notebook-dir=/opt/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
