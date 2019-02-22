@@ -12,7 +12,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ../notebooks:/opt/notebooks
+      - ../:/opt/notebooks
 
 volumes:
   data-volume:

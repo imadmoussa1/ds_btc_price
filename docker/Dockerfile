@@ -20,6 +20,7 @@ RUN conda install scipy
 RUN conda install statsmodels
 RUN conda install -c r r-essentials 
 RUN conda install r-base
+RUN conda install -c anaconda fonts-anaconda
 
 # COPY . /opt/notebooks
 
